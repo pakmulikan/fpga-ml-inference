@@ -1,0 +1,39 @@
+# FPGA-ML-Inference Configuration
+# Hardware and build settings
+
+platform:
+  name: xilinx_u250_gen3x16_xdma_4_1_202210_1
+  fpga_family: alveo
+  ddr_size_gb: 64
+  logic_cells: 1728000
+  dsp_slices: 12288
+  bram_mb: 38
+
+model:
+  max_seq_len: 128
+  max_batch_size: 32
+  hidden_dim: 256
+  num_heads: 4
+  head_dim: 64
+  num_layers: 4
+  quantization: int8
+  weight_format: fpga_xmodel
+
+hls:
+  target: hw
+  clock_period_ns: 3.33  # 300 MHz
+  pipeline_ii: 1
+  bram_partition_factor: 16
+  dsp_utilization_threshold: 0.8
+
+optimization:
+  enable_kv_cache: true
+  enable_slr_crossing: true
+  memory_port_width: 512
+  stream_depth: 1024
+  batch_prefetch: true
+
+benchmark:
+  warmup_iterations: 3
+  measurement_iterations: 10
+  report_format: json

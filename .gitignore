@@ -1,0 +1,13 @@
+build/
+bin/
+*.xclbin
+*.xo
+*.jou
+*.log
+*.str
+__pycache__/
+*.pyc
+.eggs/
+*.egg-info/
+data/*.bin
+benchmarks/results.json
